@@ -1,0 +1,43 @@
+{
+  "method": "independent_modality_score_calibration",
+  "calibration_method": "Platt_scaling_logistic_regression",
+
+  "audio": {
+    "dataset": "ASVspoof2019_LA_dev",
+    "samples": 2000,
+    "score_definition": "score_spoof",
+
+    "standardization": {
+      "mean": 0.5139826921281825,
+      "std": 0.49566442500739494
+    },
+
+    "logistic_intercept": -1.3769725153151835,
+    "logistic_coefficient": 5.212775290633274,
+
+    "decision_threshold": 0.97
+  },
+
+  "visual": {
+    "dataset": "ROSE-Youtu_calibration",
+    "samples": 58,
+    "score_definition": "spoof_score = -raw_realness",
+
+    "standardization": {
+      "mean": -0.170308532643,
+      "std": 0.0339082932
+    },
+
+    "logistic_intercept": -0.16412570873,
+    "logistic_coefficient": 1.570872239789
+  },
+
+  "fusion": {
+    "rule": "P_fusion = 0.5 * P_audio_spoof + 0.5 * P_visual_spoof",
+    "audio_weight": 0.5,
+    "visual_weight": 0.5,
+    "threshold": 0.5,
+    "spoof_condition": "P_fusion >= 0.5",
+    "real_condition": "P_fusion < 0.5"
+  }
+}

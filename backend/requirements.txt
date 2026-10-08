@@ -1,0 +1,7 @@
+﻿fastapi==0.142.2
+uvicorn==0.54.0
+python-multipart
+numpy==1.26.4
+soundfile==0.14.0
+Pillow
+torch==2.14.0

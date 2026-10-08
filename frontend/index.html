@@ -1,0 +1,530 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Multimodal Identity Spoofing Detection System"
+    >
+
+    <title>Identity Spoofing Detection System</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="header-content">
+            <div>
+                <h1>Identity Spoofing Detection System</h1>
+                <p>
+                    Machine Learning-Based Audio and Visual Spoof Detection
+                </p>
+            </div>
+
+            <div class="status-indicator">
+                <span id="apiStatusDot" class="status-dot offline"></span>
+                <span id="apiStatusText">Checking API...</span>
+            </div>
+        </div>
+    </header>
+
+
+    <main class="container">
+
+<section class="notice-card">
+
+    <h3>Participant Information</h3>
+
+    <p>
+        Your participation is part of a research usability evaluation
+        of a machine learning-based identity spoofing detection
+        system.
+    </p>
+
+    <p>
+        Please follow the instructions provided by the researcher
+        during the test.
+    </p>
+
+     <h4>Data Privacy and Confidentiality</h4>
+
+    <p>
+        Any audio and/or visual data provided during this study will be
+        anonymized and used for research purposes only.
+    </p>
+
+    <p>
+        The collected data will not be shared with third parties and
+        will be securely discarded at the conclusion of the research
+        project.
+    </p>
+
+
+    <h3>How to Use the System</h3>
+
+    <ol>
+        <li>
+            Select the test method requested by the researcher.
+        </li>
+        <li>
+            Provide the required audio, image, or both.
+        </li>
+        <li>
+            Review your input and click
+            <strong>Run Spoof Detection</strong>.
+        </li>
+        <li>
+            Wait for the detection result to appear.
+        </li>
+        <li>
+            Follow the researcher's instructions before proceeding
+            to the next task.
+        </li>
+    </ol>
+
+    <p>
+        <strong>Important:</strong>
+        There are no right or wrong answers during this usability
+        test. Please perform each task as naturally as possible.
+    </p>
+
+    <h3>Usability Tasks</h3>
+
+    <p>
+        <strong>Task 1 — Audio</strong><br>
+        Provide an audio sample using the method requested by the
+        researcher and run the detection.
+    </p>
+
+    <p>
+        <strong>Task 2 — Visual</strong><br>
+        Provide an image using the method requested by the
+        researcher and run the detection.
+    </p>
+
+    <p>
+        <strong>Task 3 — Audio + Visual</strong><br>
+        Provide both an audio sample and an image, then run the
+        detection.
+    </p>
+
+</section>
+
+
+        <section class="intro-card">
+            <h2>Identity Spoofing Detection</h2>
+
+            <p>
+                This system analyses audio, visual, or combined audio-visual
+                input to determine whether the submitted identity evidence
+                appears to be genuine or spoofed.
+            </p>
+
+            <p class="instruction">
+                Select a test mode below and provide the required media.
+            </p>
+        </section>
+
+
+        <!-- =========================================================
+             TEST MODE
+        ========================================================== -->
+
+        <section class="card">
+
+            <h2>1. Select Test Mode</h2>
+
+            <div class="mode-grid">
+
+                <button
+                    type="button"
+                    class="mode-button active"
+                    data-mode="audio"
+                    id="audioModeButton"
+                >
+                    <span class="mode-icon">Audio</span>
+                    <strong>Audio Only</strong>
+                    <small>Test audio for spoofing</small>
+                </button>
+
+
+                <button
+                    type="button"
+                    class="mode-button"
+                    data-mode="visual"
+                    id="visualModeButton"
+                >
+                    <span class="mode-icon">Visual</span>
+                    <strong>Visual Only</strong>
+                    <small>Test an image for spoofing</small>
+                </button>
+
+
+                <button
+                    type="button"
+                    class="mode-button"
+                    data-mode="multimodal"
+                    id="multimodalModeButton"
+                >
+                    <span class="mode-icon">Audio + Visual</span>
+                    <strong>Audio + Visual</strong>
+                    <small>Combine both modalities</small>
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+             AUDIO SECTION
+        ========================================================== -->
+
+        <section
+            class="card input-section"
+            id="audioSection"
+        >
+
+            <h2>2. Audio Input</h2>
+
+            <p class="section-description">
+                Record your voice using the microphone or upload an audio
+                file.
+            </p>
+
+
+            <div class="input-group">
+
+                <h3>Option A — Record Audio</h3>
+
+                <div class="record-controls">
+
+                    <button
+                        type="button"
+                        id="startRecordingButton"
+                        class="primary-button"
+                    >
+                        Audio Start Recording
+                    </button>
+
+                    <button
+                        type="button"
+                        id="stopRecordingButton"
+                        class="secondary-button"
+                        disabled
+                    >
+                        Stop Recording
+                    </button>
+
+                </div>
+
+                <div
+                    id="recordingStatus"
+                    class="recording-status"
+                >
+                    Ready to record
+                </div>
+
+                <audio
+                    id="audioPreview"
+                    class="media-preview"
+                    controls
+                    hidden
+                ></audio>
+
+            </div>
+
+
+            <div class="divider">
+                <span>OR</span>
+            </div>
+
+
+            <div class="input-group">
+
+                <h3>Option B — Upload Audio File</h3>
+
+                <label
+                    for="audioFile"
+                    class="file-label"
+                >
+                    Choose Audio File
+                </label>
+
+                <input
+                    type="file"
+                    id="audioFile"
+                    accept="audio/*,.wav,.webm,.mp3,.flac,.ogg,.m4a"
+                >
+
+                <div
+                    id="audioFileName"
+                    class="file-name"
+                >
+                    No file selected
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+             VISUAL SECTION
+        ========================================================== -->
+
+        <section
+            class="card input-section hidden"
+            id="visualSection"
+        >
+
+            <h2>2. Visual Input</h2>
+
+            <p class="section-description">
+                Capture an image using your webcam or upload an image file.
+            </p>
+
+
+            <div class="input-group">
+
+                <h3>Option A — Webcam</h3>
+
+                <div class="webcam-container">
+
+                    <video
+                        id="webcamPreview"
+                        autoplay
+                        playsinline
+                        muted
+                    ></video>
+
+                    <canvas
+                        id="captureCanvas"
+                        hidden
+                    ></canvas>
+
+                </div>
+
+
+                <div class="record-controls">
+
+                    <button
+                        type="button"
+                        id="startCameraButton"
+                        class="primary-button"
+                    >
+                        Visual Start Camera
+                    </button>
+
+                    <button
+                        type="button"
+                        id="captureImageButton"
+                        class="secondary-button"
+                        disabled
+                    >
+                       Capture Image
+                    </button>
+
+                    <button
+                        type="button"
+                        id="stopCameraButton"
+                        class="secondary-button"
+                        disabled
+                    >
+                        Stop Camera
+                    </button>
+
+                </div>
+
+
+                <img
+                    id="imagePreview"
+                    class="image-preview"
+                    alt="Captured image preview"
+                    hidden
+                >
+
+            </div>
+
+
+            <div class="divider">
+                <span>OR</span>
+            </div>
+
+
+            <div class="input-group">
+
+                <h3>Option B — Upload Image File</h3>
+
+                <label
+                    for="imageFile"
+                    class="file-label"
+                >
+                    Choose Image File
+                </label>
+
+                <input
+                    type="file"
+                    id="imageFile"
+                    accept="image/*,.jpg,.jpeg,.png,.webp"
+                >
+
+                <div
+                    id="imageFileName"
+                    class="file-name"
+                >
+                    No file selected
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+             RUN DETECTION
+        ========================================================== -->
+
+        <section class="card">
+
+            <h2>3. Run Detection</h2>
+
+            <p class="section-description">
+                When your input is ready, submit it to the detection system.
+            </p>
+
+            <button
+                type="button"
+                id="detectButton"
+                class="detect-button"
+            >
+                 Run Spoof Detection
+            </button>
+
+            <div
+                id="loadingIndicator"
+                class="loading hidden"
+            >
+                <div class="spinner"></div>
+                <span>
+                    Analysing your input. Please wait...
+                </span>
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+             RESULT
+        ========================================================== -->
+
+        <section
+            class="card result-card hidden"
+            id="resultSection"
+        >
+
+            <h2>Detection Result</h2>
+
+            <div
+                id="verdictDisplay"
+                class="verdict"
+            >
+                —
+            </div>
+
+            <div class="confidence-container">
+
+                <div class="confidence-label">
+                    Confidence
+                </div>
+
+                <div
+                    id="confidenceDisplay"
+                    class="confidence-value"
+                >
+                    —
+                </div>
+
+                <div class="confidence-bar">
+                    <div
+                        id="confidenceBar"
+                        class="confidence-fill"
+                    ></div>
+                </div>
+
+            </div>
+
+
+            <div class="result-details">
+
+                <div class="result-item">
+                    <span>Modality</span>
+                    <strong id="modalityDisplay">—</strong>
+                </div>
+
+                <div class="result-item">
+                    <span>Processing Time</span>
+                    <strong id="latencyDisplay">—</strong>
+                </div>
+
+            </div>
+
+
+            <div
+                id="technicalDetails"
+                class="technical-details"
+                hidden
+>
+                <h3>Detection Details</h3>
+
+                <pre id="jsonResult"></pre>
+            </div>
+
+
+            <button
+                type="button"
+                id="resetButton"
+                class="secondary-button reset-button"
+            >
+               Start New Test
+            </button>
+
+        </section>
+
+
+        <!-- =========================================================
+             PARTICIPANT NOTICE
+        ========================================================== -->
+
+        
+
+    </main>
+
+
+    <footer class="site-footer">
+        <p>
+            Development of a Machine Learning-Based System for the Detection
+            of Identity Spoofing Attacks
+        </p>
+
+        <p>
+            MIVA Open University — School of Computing
+        </p>
+    </footer>
+
+
+    <script src="app.js"></script>
+
+</body>
+</html>
+
+
+
