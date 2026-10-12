@@ -930,7 +930,7 @@ function setLoading(isLoading) {
     } else {
 
         detectButton.textContent =
-            "ðŸ” Run Spoof Detection";
+            "Run Spoof Detection";
     }
 }
 
@@ -1039,7 +1039,7 @@ async function checkAPIHealth() {
 
 
         apiStatusText.textContent =
-            `API Online â€” ${data.status || "healthy"}`;
+            `API Online - ${data.status || "healthy"}`;
 
 
     } catch (error) {
