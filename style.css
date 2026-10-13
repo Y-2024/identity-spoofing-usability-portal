@@ -1,4 +1,4 @@
-﻿* {
+* {
     box-sizing: border-box;
 }
 
@@ -634,5 +634,63 @@ input[type="file"] {
 
     .confidence-value {
         font-size: 28px;
+    }
+}
+
+
+/* ============================================================
+   SUS USABILITY SURVEY
+============================================================ */
+
+.survey-card {
+    border: 1px solid #bfdbfe;
+    background: #f8fbff;
+}
+
+.survey-card h2 {
+    margin-top: 0;
+}
+
+.survey-card p {
+    line-height: 1.6;
+}
+
+.survey-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 8px;
+    padding: 14px 22px;
+    border-radius: 8px;
+    background: #2563eb;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.survey-button:hover {
+    background: #1d4ed8;
+    transform: translateY(-1px);
+}
+
+.survey-button:focus-visible {
+    outline: 3px solid #93c5fd;
+    outline-offset: 3px;
+}
+
+.survey-note {
+    margin-bottom: 0;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+@media (max-width: 500px) {
+    .survey-button {
+        display: flex;
+        width: 100%;
     }
 }
